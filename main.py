@@ -1,9 +1,14 @@
+import os
+
 import requests
 import tweepy
 import time
+from dotenv import load_dotenv
 
-client = tweepy.Client('AAAAAAAAAAAAAAAAAAAAAAkebQEAAAAAmpzxzNABmgMUqsFytnKci%2BtI7jQ%3DEuphW1Hg5YtlCJS26xi8LjZDbuAGBT1RaeiFvPFgAbmUkACmll', wait_on_rate_limit=True)
+load_dotenv()
 
+client = tweepy.Client(bearer_token=os.getenv('BEARER_TOKEN'),
+                       wait_on_rate_limit=True)
 
 
 me = client.get_user(id=1157422413073854464).data
@@ -67,15 +72,7 @@ for user in my_following_list:
                 print(f'https://twitter.com/{user.username} проверку не прошёл')
 
 
-
-
-
 with open('to_unfollow.txt', mode='w') as f:
     for u in users_to_unfollow:
         f.write(u)
         f.write('\n')
-
-
-
-
-
